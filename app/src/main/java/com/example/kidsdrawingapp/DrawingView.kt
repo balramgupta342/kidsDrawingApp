@@ -22,10 +22,28 @@ class DrawingView(context:Context, attrs:AttributeSet): View(context,attrs) {
     private var mBrushSize:Float = 0.toFloat()
     private var color= Color.BLACK
     private var canvas:Canvas? = null
+
     private val mPaths = ArrayList<CustomPath>()
+    private val mUndoPaths = ArrayList<CustomPath>()
+    private val mRedoPaths = ArrayList<CustomPath>()
+
 
     init{
         setUpDrawing()
+    }
+
+    fun onClickUndo(){
+        if(mPaths.size > 0){
+            mUndoPaths.add(mPaths.removeAt(mPaths.size - 1))
+            invalidate()
+        }
+    }
+
+    fun onClickRedo(){
+        if (mUndoPaths.size > 0) {
+            mPaths.add(mUndoPaths.removeAt(mUndoPaths.size - 1))
+            invalidate()
+        }
     }
 
     private fun setUpDrawing(){
@@ -106,12 +124,13 @@ class DrawingView(context:Context, attrs:AttributeSet): View(context,attrs) {
         mDrawPaint!!.color = color
     }
 
-    fun eraserButton(){
+//    fun eraserButton(newColor: String){
         // Example eraser logic
-//        mDrawPaint!!.color = Color.WHITE // Set paint color to white (or transparent)
-//        mDrawPaint!!.xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR) // Use PorterDuff to clear content
+//        mDrawPaint!!.color = Color.WHITE
+    // Set paint color to white (or transparent)
+    // mDrawPaint!!.xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR) // Use PorterDuff to clear content
 //        canvas!!.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
-    }
+//    }
     internal inner class CustomPath(var color:Int,var brushThickness:Float):Path()
 
 }
