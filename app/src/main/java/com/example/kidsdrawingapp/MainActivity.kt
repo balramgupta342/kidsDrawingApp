@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
 
                     openGallery.launch(pickIntent)
                 }else{
-                    if(permissionName == Manifest.permission.READ_MEDIA_IMAGES){
+                    if(permissionName == Manifest.permission.READ_EXTERNAL_STORAGE){
                         Toast.makeText(this,"Permission denied for storage", Toast.LENGTH_LONG).show()
                     }
                 }
@@ -176,7 +176,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun isReadStorageAllowed(): Boolean{
         val result = ContextCompat.checkSelfPermission(this,
-            Manifest.permission.READ_MEDIA_IMAGES)
+            Manifest.permission.READ_EXTERNAL_STORAGE)
 
         return result == PackageManager.PERMISSION_GRANTED
     }
@@ -184,13 +184,13 @@ class MainActivity : AppCompatActivity() {
     private fun requestStoragePermission(){
         if (ActivityCompat.shouldShowRequestPermissionRationale(
             this,
-            Manifest.permission.READ_MEDIA_IMAGES)
+            Manifest.permission.READ_EXTERNAL_STORAGE)
             ){
             showRationalDialog("Kid's Drawing App","Kid's Drawing App " +
                     "needs to Access your External Storage")
         }else{
             requestPermission.launch(arrayOf(
-                Manifest.permission.READ_MEDIA_IMAGES,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
             ))
         }
